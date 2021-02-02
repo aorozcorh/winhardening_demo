@@ -1,2 +1,6 @@
 ---
 # tasks file for winhardening_demo
+     - name: win hardening demo
+       tasks:
+        
+         - include: ping.yml
