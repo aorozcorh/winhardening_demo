@@ -1,0 +1,30 @@
+---
+- name: PASSWORD POLICY
+  hosts: win
+  gather_facts: yes
+
+  tasks:
+     - name: Obtain information about a registry key using short form
+       win_reg_stat:
+         path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion
+       register: current_version
+
+     - name: Obtain information about a registry key property
+       win_reg_stat:
+         path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion
+         name: CommonFilesDir
+       register: common_files_dir
+
+     - name: Obtain the registry key's (Default) property
+       win_reg_stat:
+         path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion
+         name: ''
+       register: current_version_default
+
+     - name: Print all available facts
+       ansible.builtin.debug:
+         var: ansible_facts
+
+     - name: Caracteristicas del password
+       win_command: net accounts
+       register: minpage 
