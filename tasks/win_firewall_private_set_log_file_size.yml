@@ -1,0 +1,12 @@
+---
+- name: PASSWORD POLICY
+  hosts: win
+  gather_facts: yes
+
+  tasks:
+      - name: "9.1.6 (L1) Ensure 'Windows Firewall: Private: Logging: Size limit (KB)' is set to '16,384 KB or greater'"
+      win_regedit:
+              path: HKLM:\Software\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging
+              name: "LogFileSize"
+              data: "16384"
+              type: dword

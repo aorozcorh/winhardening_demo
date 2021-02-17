@@ -1,0 +1,11 @@
+---
+- name: USER RIGHTS
+  hosts: win
+  gather_facts: yes
+
+  tasks:
+     - name: Verify the Windows folder permissions are properly set | windows-base-100
+       win_file:
+          path: C:\windows
+          state: directory
+          notify: Verify the Windows folder permissions are properly set

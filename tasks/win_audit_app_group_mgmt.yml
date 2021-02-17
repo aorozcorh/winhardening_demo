@@ -1,0 +1,19 @@
+---
+- name: PASSWORD POLICY
+  hosts: win
+  gather_facts: yes
+
+  tasks:
+
+     - name: Audit Application Group Management | windows-audit-204
+       win_command: AuditPol /Set /SubCategory:"Application Group Management" /Failure:Enable /Success:Enable
+       register: appGroupMngmtAudit
+       args:
+         creates: C:\appGroupMngmtAudit.lock
+
+     - name: Create appGroupMngmtAudit.lock if group manangement audit log was activated
+       win_copy:
+         dest: C:\appGroupMngmtAudit.lock
+         content: ""
+         force: no
+       when: appGroupMngmtAudit

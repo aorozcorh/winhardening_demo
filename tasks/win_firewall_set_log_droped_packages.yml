@@ -1,0 +1,13 @@
+---
+- name: PASSWORD POLICY
+  hosts: win
+  gather_facts: yes
+
+  tasks:
+  
+    - name: "9.1.7 (L1) Ensure 'Windows Firewall: Domain: Logging: Log dropped packets' is set to 'Yes'"
+      win_regedit:
+              path: HKLM:\Software\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging
+              name: "LogDroppedPackets"
+              data: "1"
+              type: dword

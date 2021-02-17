@@ -1,0 +1,19 @@
+---
+- name: PASSWORD POLICY
+  hosts: win
+  gather_facts: yes
+
+  tasks:
+
+     - name: Account Logon Audit Log | windows-audit-203
+       win_command: AuditPol /Set /Category:"Account Logon" /Failure:Enable /Success:Enable
+       register: accountLogonAudit
+       args:
+         creates: C:\accountLogonAudit.lock
+
+     - name: Create accountLogonAudit.lock if account audit log was activated
+       win_copy:
+         dest: C:\accountLogonAudit.lock
+         content: ""
+         force: no
+       when: accountLogonAudit

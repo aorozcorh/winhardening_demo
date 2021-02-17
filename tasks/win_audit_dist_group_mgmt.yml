@@ -1,0 +1,19 @@
+---
+- name: PASSWORD POLICY
+  hosts: win
+  gather_facts: yes
+
+  tasks:
+
+     - name: Audit Application Group Management | windows-audit-206
+       win_command: AuditPol /Set /SubCategory:"Distribution Group Management" /Failure:Enable /Success:Enable
+       register: distGroupMngmtAudit
+       args:
+         creates: C:\distGroupMngmtAudit.lock
+
+     - name: Create distGroupMngmtAudit.lock if dist group manangement audit log was activated
+       win_copy:
+         dest: C:\distGroupMngmtAudit.lock
+         content: ""
+         force: no
+       when: distGroupMngmtAudit

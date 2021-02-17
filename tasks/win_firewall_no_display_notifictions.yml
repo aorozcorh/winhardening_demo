@@ -1,0 +1,13 @@
+---
+- name: PASSWORD POLICY
+  hosts: win
+  gather_facts: yes
+
+  tasks:
+  
+    - name: "9.1.4 (L1) Ensure 'Windows Firewall: Domain: Settings: Display a notification' is set to 'No'"
+      win_regedit:
+              path: HKLM:\Software\Policies\Microsoft\WindowsFirewall\DomainProfile
+              name: "DisableNotifications"
+              data: "1"
+              type: dword  

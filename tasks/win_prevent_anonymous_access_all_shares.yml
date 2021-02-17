@@ -1,0 +1,13 @@
+---
+- name: USER RIGHTS
+  hosts: win
+  gather_facts: yes
+
+  tasks:
+
+     - name: All Shares are Configured to Prevent Anonymous Access | windows-base-103
+       win_regedit:
+          path: HKLM:\System\CurrentControlSet\Services\LanManServer\Parameters
+          name: "NullSessionShares"
+          data: ""
+          type: multistring

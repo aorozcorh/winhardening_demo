@@ -1,0 +1,13 @@
+---
+- name: USER RIGHTS
+  hosts: win
+  gather_facts: yes
+
+  tasks:
+
+     - name: Anonymous Access to Windows Shares and Named Pipes is Disallowed | windows-base-102
+       win_regedit:
+          path: HKLM:\System\CurrentControlSet\Services\LanManServer\Parameters
+          name: "RestrictNullSessAccess"
+          data: "1"
+          type: dword

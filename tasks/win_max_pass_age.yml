@@ -1,0 +1,19 @@
+---
+- name: PASSWORD POLICY 
+  hosts: win
+  gather_facts: yes
+
+  tasks:
+
+     - name: Set Maximum password age to 60 or more days | cis maximum-password-age 1.1.2
+       win_command: net accounts /maxpwage:60
+       register: maxPassAge
+       args:
+         creates: C:\maxPassAge.lock
+
+     - name: Create maxPassAge.lock if password history is enforced
+       win_copy:
+         dest: C:\maxPassAge.lock
+         content: ""
+         force: no
+       when: maxPassAge

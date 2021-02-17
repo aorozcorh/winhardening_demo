@@ -1,0 +1,19 @@
+---
+- name: PASSWORD POLICY
+  hosts: win
+  gather_facts: yes
+
+  tasks:
+
+     - name: Audit Computer Account Management | windows-audit-205
+       win_command: AuditPol /Set /SubCategory:"Computer Account Management" /Failure:Enable /Success:Enable
+       register: appAccountMngmtAudit
+       args:
+         creates: C:\appAccountMngmtAudit.lock
+
+     - name: Create appAccountMngmtAudit.lock if computer account manangement audit log was activated
+       win_copy:
+         dest: C:\appAccountMngmtAudit.lock
+         content: ""
+         force: no
+       when: appAccountMngmtAudit

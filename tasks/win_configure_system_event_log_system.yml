@@ -1,0 +1,13 @@
+---
+- name: PASSWORD POLICY
+  hosts: win
+  gather_facts: yes
+
+  tasks:
+   
+     - name: Configure System Event Log (System) | windows-audit-103
+       win_regedit:
+         path: HKLM:\Software\Policies\Microsoft\Windows\EventLog\System
+         name: "MaxSize"
+         data: "1"
+         type: dword

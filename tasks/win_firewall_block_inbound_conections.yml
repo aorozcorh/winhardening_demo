@@ -1,0 +1,13 @@
+---
+- name: PASSWORD POLICY
+  hosts: win
+  gather_facts: yes
+
+  tasks:
+  
+    - name: "9.1.2 (L1) Ensure 'Windows Firewall: Domain: Inbound connections' is set to 'Block (default)'"
+      win_regedit:
+              path: HKLM:\Software\Policies\Microsoft\WindowsFirewall\DomainProfile
+              name: "DefaultInboundAction"
+              data: "1"
+              type: dword   

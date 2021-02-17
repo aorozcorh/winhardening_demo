@@ -1,0 +1,19 @@
+---
+- name: PASSWORD POLICY 
+  hosts: win
+  gather_facts: yes
+
+  tasks:
+  
+     - name: Set Minimum password length to 14 or more characters | cis minimum-password-length 1.1.4
+       win_command: net accounts /minpwlen:14
+       register: minPassLength
+       args:
+         creates: C:\minPassLength.lock
+
+     - name: Create minPassLength.lock if password history is enforced
+       win_copy:
+         dest: C:\minPassLength.lock
+         content: ""
+         force: no
+       when: minPassLength
