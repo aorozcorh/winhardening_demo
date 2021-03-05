@@ -1,5 +1,5 @@
 ---
-- name: PASSWORD POLICY
+- name: AUDIT POLICY
   hosts: win
   gather_facts: yes
 
